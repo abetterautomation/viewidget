@@ -54,4 +54,4 @@ from version 2.x to 3.x, see: [https://docs.python.org/3.0/library/2to3.html](ht
 I hope you find use and enjoy this free software.  
 Ryan Eggers  
 Abetter Automation Technologies Company  
-[www.abetterautomation.com](www.abetterautomation.com)
+[https://www.abetterautomation.com](www.abetterautomation.com)
