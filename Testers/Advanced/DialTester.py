@@ -7,58 +7,58 @@
 ############################################
 
 import warnings
-import Tkinter
-from ttk import Notebook
+import tkinter
+from tkinter import ttk
 
 from viewidget import Dial, Digit
 
 import CommonTestTools as Ctt
 
 
-class Introduction(Tkinter.Frame):
+class Introduction(tkinter.Frame):
     """Provides an introduction from Dial's docstring"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Introduction\n'
-        innerframe = Tkinter.Frame(self)
+        innerframe = tkinter.Frame(self)
         widget = Dial(innerframe, unit='degF')
         widget.pack(side='right')
-        docframe = Tkinter.Frame(innerframe)
+        docframe = tkinter.Frame(innerframe)
         name = Ctt.getwidgetname(widget, True)
         doc = Ctt.getdoc(widget)
-        Tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
-        Tkinter.Label(docframe, text=doc, justify='left').pack(side='bottom')
+        tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
+        tkinter.Label(docframe, text=doc, justify='left').pack(side='bottom')
         docframe.pack(side='left')
         innerframe.pack(side='left', fill='x', expand=1, padx=50)
 
 
-class Construction(Tkinter.Frame):
+class Construction(tkinter.Frame):
     """Provides information on Dial's __init__ function"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Construction\n'
-        innerframe = Tkinter.Frame(self)
+        innerframe = tkinter.Frame(self)
         widget = Dial(innerframe, size=275, casewidth=10, min=0, max=100, value=14.7, unit='psi', withdisplay=False)
         widget.pack(side='right')
-        docframe = Tkinter.Frame(innerframe)
+        docframe = tkinter.Frame(innerframe)
         name = Ctt.getwidgetname(widget) + ".__init__"
         sig = Ctt.getfunctionsignature(widget.__init__)
         doc = Ctt.getdoc(widget.__init__)
         t = '\t'.expandtabs(4)
         doc = t + doc.replace('\n', '\n' + t)
-        Tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
-        Tkinter.Label(docframe, text='\n'.join([sig, doc]), justify='left').pack(side='bottom')
+        tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
+        tkinter.Label(docframe, text='\n'.join([sig, doc]), justify='left').pack(side='bottom')
         docframe.pack(side='left')
         innerframe.pack(side='left', fill='x', expand=1, padx=50)
 
 
-class SizeCasewidthValue(Tkinter.Frame):
+class SizeCasewidthValue(tkinter.Frame):
     """Demonstrates Dial configuration functionality: size, casewidth and value"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'size, casewidth\nand value'
 
         widget1 = Dial()  # Default: size=300, casewidth=15, value=min
@@ -73,11 +73,11 @@ class SizeCasewidthValue(Tkinter.Frame):
         Ctt.WidgetBlock(self, block1, block2, block3, block4).pack(fill='both', expand=1)
 
 
-class StartExtentMinMax(Tkinter.Frame):
+class StartExtentMinMax(tkinter.Frame):
     """Demonstrates Dial configuration functionality: start, extent, min, and max"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'start/extent and\nmin/max'
 
         widget1 = Dial()  # Default: start=225, extent=-270, min=60, max=220
@@ -92,11 +92,11 @@ class StartExtentMinMax(Tkinter.Frame):
         Ctt.WidgetBlock(self, block1, block2, block3, block4).pack(fill='both', expand=1)
 
 
-class ScaleUnit(Tkinter.Frame):
+class ScaleUnit(tkinter.Frame):
     """Demonstrates Dial configuration functionality: majorscale, semimajorscale, minorscale, and unit"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'scale and unit\n(markings)'
 
         widget1 = Dial()  # Default: majorscale=20, semimajorscale=10, minorscale=2, unit=None
@@ -111,11 +111,11 @@ class ScaleUnit(Tkinter.Frame):
         Ctt.WidgetBlock(self, block1, block2, block3, block4).pack(fill='both', expand=1)
 
 
-class BoundWithdisplay(Tkinter.Frame):
+class BoundWithdisplay(tkinter.Frame):
     """Demonstrates Dial configuration functionality: bound and withdisplay"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'bound and\nwithdisplay'
 
         widget1 = Dial(value=55)  # Default: bound=True, withdisplay=True
@@ -130,7 +130,7 @@ class BoundWithdisplay(Tkinter.Frame):
         Ctt.WidgetBlock(self, block1, block2, block3, block4).pack(fill='both', expand=1)
 
 
-class Demonstration(Tkinter.Frame):
+class Demonstration(tkinter.Frame):
     """Allows the user to try out the Dial's features interactively"""
 
     DEFAULT_CONFIG = dict(size=300,
@@ -148,7 +148,7 @@ class Demonstration(Tkinter.Frame):
                           value=60)
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Interactive\nDemonstration'
 
         self.dial_config = Demonstration.DEFAULT_CONFIG.copy()
@@ -156,27 +156,27 @@ class Demonstration(Tkinter.Frame):
         self.dial.pack(side='left', fill='y', expand=1, pady=20)
 
         # Interact subframe
-        self.interactframe = Tkinter.Frame(self)
+        self.interactframe = tkinter.Frame(self)
         self.interactframe.pack(side='right', fill='y', expand=1, pady=10)
-        Tkinter.Label(self.interactframe, text="Please enter Dial options...*").pack(anchor='w', pady=5)
+        tkinter.Label(self.interactframe, text="Please enter Dial options...*").pack(anchor='w', pady=5)
         # Entry frame contains config variable keys as labels and corresponding entry widgets with values of each key
-        self.entryframe = Tkinter.Frame(self.interactframe)
+        self.entryframe = tkinter.Frame(self.interactframe)
         row = 0
         for key, value in self.dial_config.items():
-            Tkinter.Label(self.entryframe, text=key).grid(row=row, column=0)
-            ent = Tkinter.Entry(self.entryframe, name=key)
+            tkinter.Label(self.entryframe, text=key).grid(row=row, column=0)
+            ent = tkinter.Entry(self.entryframe, name=key)
             ent.insert(0, str(value))
             ent.bind('<Return>', lambda e: self.refresh())
             ent.grid(row=row, column=1)
             row += 1
         self.entryframe.pack()
         # Reset and animate buttons
-        self.animate_button = Tkinter.Button(self.interactframe, text='Animate', width=10,
+        self.animate_button = tkinter.Button(self.interactframe, text='Animate', width=10,
                                              command=lambda: Animation(self, **self.dial_config))
         self.animate_button.pack(pady=10)
-        Tkinter.Button(self.interactframe, text='Reset', width=10, command=self.reset).pack()
+        tkinter.Button(self.interactframe, text='Reset', width=10, command=self.reset).pack()
         msg = "*Press <enter> after typing in an option\n value to refresh the Dial widget"
-        Tkinter.Label(self.interactframe, text=msg, justify='left').pack(anchor='w', pady=10)
+        tkinter.Label(self.interactframe, text=msg, justify='left').pack(anchor='w', pady=10)
 
     # end init
 
@@ -195,7 +195,7 @@ class Demonstration(Tkinter.Frame):
             else:
                 try:
                     self.dial_config[key] = eval(input)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     self.entryframe.nametowidget(key).config(bg='red')
                 else:
@@ -211,7 +211,7 @@ class Demonstration(Tkinter.Frame):
                 warnings.simplefilter("always")
                 try:
                     self.dial = Dial(self, **self.dial_config)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     size = Demonstration.DEFAULT_CONFIG['size']
                     self.dial = Ctt.ErrorDisplay(self, size, error)
@@ -231,9 +231,9 @@ class Demonstration(Tkinter.Frame):
                                 self.entryframe.nametowidget(key).config(bg='gold')
         self.dial.pack(side='left', fill='y', expand=1, pady=20)
         if haserror:
-            self.animate_button.config(state=Tkinter.DISABLED)
+            self.animate_button.config(state=tkinter.DISABLED)
         elif self.animate_button['state'] != 'normal':
-            self.animate_button.config(state=Tkinter.NORMAL)
+            self.animate_button.config(state=tkinter.NORMAL)
 
     # end refresh
 
@@ -241,16 +241,16 @@ class Demonstration(Tkinter.Frame):
         """Resets back to the default configuration"""
         for key, value in Demonstration.DEFAULT_CONFIG.items():
             ent = self.entryframe.nametowidget(key)
-            ent.delete(0, Tkinter.END)
+            ent.delete(0, tkinter.END)
             ent.insert(0, str(value))
         self.refresh()
 
 
-class Animation(Tkinter.Toplevel):
+class Animation(tkinter.Toplevel):
     """Toplevel window to run animation"""
 
     def __init__(self, master, **config):
-        Tkinter.Toplevel.__init__(self, master)
+        tkinter.Toplevel.__init__(self, master)
         self.transient(master)
         self.title('Animation')
         self.protocol("WM_DELETE_WINDOW", self.cancel)
@@ -266,41 +266,41 @@ class Animation(Tkinter.Toplevel):
         self.dial.pack(pady=50)
 
         # Run parameters
-        self.entryframe = Tkinter.Frame(self)
+        self.entryframe = tkinter.Frame(self)
         units = config['unit']
         if not units:
             units = 'units'
         # Run min
         name = 'run min'
-        Tkinter.Label(self.entryframe, text=name).grid(row=0, column=0)
-        ent = Tkinter.Entry(self.entryframe, name=name)
+        tkinter.Label(self.entryframe, text=name).grid(row=0, column=0)
+        ent = tkinter.Entry(self.entryframe, name=name)
         ent.insert(0, str(config['min']))
         ent.grid(row=0, column=1)
-        Tkinter.Label(self.entryframe, text=units).grid(row=0, column=2)
+        tkinter.Label(self.entryframe, text=units).grid(row=0, column=2)
         # Run max
         name = 'run max'
-        Tkinter.Label(self.entryframe, text=name).grid(row=1, column=0)
-        ent = Tkinter.Entry(self.entryframe, name=name)
+        tkinter.Label(self.entryframe, text=name).grid(row=1, column=0)
+        ent = tkinter.Entry(self.entryframe, name=name)
         ent.insert(0, str(config['max']))
         ent.grid(row=1, column=1)
-        Tkinter.Label(self.entryframe, text=units).grid(row=1, column=2)
+        tkinter.Label(self.entryframe, text=units).grid(row=1, column=2)
         # Run speed
         name = 'run speed'
-        Tkinter.Label(self.entryframe, text=name).grid(row=2, column=0)
-        ent = Tkinter.Entry(self.entryframe, name=name)
+        tkinter.Label(self.entryframe, text=name).grid(row=2, column=0)
+        ent = tkinter.Entry(self.entryframe, name=name)
         ent.insert(0, str(1))
         ent.grid(row=2, column=1)
-        Tkinter.Label(self.entryframe, text=units + "/sec").grid(row=2, column=2)
+        tkinter.Label(self.entryframe, text=units + "/sec").grid(row=2, column=2)
         self.entryframe.pack()
 
         # Start/Stop button
-        self.button = Tkinter.Button(self, text='Start', width=10, command=self.startstop)
+        self.button = tkinter.Button(self, text='Start', width=10, command=self.startstop)
         self.button.pack(pady=10)
 
         # Quit button
-        Tkinter.Button(self, text='Quit', width=10, command=self.cancel).pack()
+        tkinter.Button(self, text='Quit', width=10, command=self.cancel).pack()
 
-        Tkinter.Label(self, text="Note: Stopping causes direction\nto reverse upon restart.").pack(pady=5)
+        tkinter.Label(self, text="Note: Stopping causes direction\nto reverse upon restart.").pack(pady=5)
         self.isrunning = False
         self.direction = 1
         self.focus_set()
@@ -372,11 +372,11 @@ class Animation(Tkinter.Toplevel):
         self.destroy()
 
 
-class Advanced(Tkinter.Frame):
+class Advanced(tkinter.Frame):
     """Demonstrates some of the Dial's more advanced features"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Advanced\nDesign'
 
         msg = "The Dial has additional methods for configuration after construction. "
@@ -384,7 +384,7 @@ class Advanced(Tkinter.Frame):
         msg += "in the Dial widget have been provided tags to help with configuration via "
         msg += "Tkinter's methods. Below is an example of a Dial that has had\n"
         msg += "additional features configured above and beyond that of the standard Dial's appearance."
-        Tkinter.Label(self, text=msg, justify='left').pack(pady=50)
+        tkinter.Label(self, text=msg, justify='left').pack(pady=50)
 
         self.dial = Dial(self, min=0, max=220, withdisplay=0, extent=-205)
         self.dial.pack()
@@ -401,7 +401,7 @@ class Advanced(Tkinter.Frame):
         # Add Viewidget Digit to look better than standard Dial withdisplay functionality.
         # Note this takes some playing around with the sizes, and would take additional effort
         # to make it dynamic with Dial size.
-        self.dial.digitframe = Tkinter.Frame(self.dial)
+        self.dial.digitframe = tkinter.Frame(self.dial)
         self.dial.digits = []
         size = 36
         self.dial.digits.append(Digit(self.dial.digitframe, size=size))
@@ -412,7 +412,7 @@ class Advanced(Tkinter.Frame):
         self.dial.create_window(self.dial.xm + 83, self.dial.ym + 30, window=self.dial.digitframe)
 
         # Test/Pause button
-        self.button = Tkinter.Button(self, text='Test', width=10, command=self.startstop)
+        self.button = tkinter.Button(self, text='Test', width=10, command=self.startstop)
         self.button.pack(pady=20)
         self.isrunning = False
 
@@ -461,17 +461,17 @@ class Advanced(Tkinter.Frame):
 if __name__ == '__main__':
     module = 'Dial'
 
-    TestWindow = Tkinter.Tk()
+    TestWindow = tkinter.Tk()
     TestWindow.title('%s Widget Functionality Tester' % module)
 
-    quickmenu = Tkinter.Menu(TestWindow)
+    quickmenu = tkinter.Menu(TestWindow)
     TestWindow.config(menu=quickmenu)
-    filemenu = Tkinter.Menu(quickmenu, tearoff=0)
+    filemenu = tkinter.Menu(quickmenu, tearoff=0)
     quickmenu.add_cascade(label="File", menu=filemenu)
     filemenu.add_command(label="About", command=lambda: Ctt.showinfo(module))
     filemenu.add_command(label="Exit", command=TestWindow.quit)
 
-    tabs = Notebook(TestWindow)
+    tabs = ttk.Notebook(TestWindow)
     tabs.pack(fill='both', expand=1)
     tabframes = []
 

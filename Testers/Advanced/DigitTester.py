@@ -8,58 +8,58 @@
 
 import warnings
 import time
-import Tkinter
-from ttk import Notebook
+import tkinter
+from tkinter import ttk
 
 from viewidget import Digit, LED
 
 import CommonTestTools as Ctt
 
 
-class Introduction(Tkinter.Frame):
+class Introduction(tkinter.Frame):
     """Provides an introduction from Digit's docstring"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Introduction\n'
-        innerframe = Tkinter.Frame(self)
+        innerframe = tkinter.Frame(self)
         widget = Digit(innerframe)
         widget.pack(side='right')
-        docframe = Tkinter.Frame(innerframe)
+        docframe = tkinter.Frame(innerframe)
         name = Ctt.getwidgetname(widget, True)
         doc = Ctt.getdoc(widget)
-        Tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
-        Tkinter.Label(docframe, text=doc, justify='left').pack(side='bottom')
+        tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
+        tkinter.Label(docframe, text=doc, justify='left').pack(side='bottom')
         docframe.pack(side='left')
         innerframe.pack(side='left', fill='x', expand=1, padx=50)
 
 
-class Construction(Tkinter.Frame):
+class Construction(tkinter.Frame):
     """Provides information on Digit's __init__ function"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Construction\n'
-        innerframe = Tkinter.Frame(self)
+        innerframe = tkinter.Frame(self)
         widget = Digit(innerframe, size=115, value=8, fg='green')
         widget.pack(side='right')
-        docframe = Tkinter.Frame(innerframe)
+        docframe = tkinter.Frame(innerframe)
         name = Ctt.getwidgetname(widget) + ".__init__"
         sig = Ctt.getfunctionsignature(widget.__init__)
         doc = Ctt.getdoc(widget.__init__)
         t = '\t'.expandtabs(4)
         doc = t + doc.replace('\n', '\n' + t)
-        Tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
-        Tkinter.Label(docframe, text='\n'.join([sig, doc]), justify='left').pack(side='bottom')
+        tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
+        tkinter.Label(docframe, text='\n'.join([sig, doc]), justify='left').pack(side='bottom')
         docframe.pack(side='left')
         innerframe.pack(side='left', fill='x', expand=1, padx=50)
 
 
-class SizeValue(Tkinter.Frame):
+class SizeValue(tkinter.Frame):
     """Demonstrates Digit configuration functionality: size and value"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'size and\nvalue'
 
         widget1 = Digit()  # Default: size=100, value=0
@@ -83,11 +83,11 @@ class SizeValue(Tkinter.Frame):
                                                                                                    expand=1)
 
 
-class ForegroundBackground(Tkinter.Frame):
+class ForegroundBackground(tkinter.Frame):
     """Demonstrates Digit configuration functionality: foreground and background"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'foreground and\nbackground'
         bg_color = 'SystemMenu'
 
@@ -97,7 +97,7 @@ class ForegroundBackground(Tkinter.Frame):
         widget4 = Digit(value=8, foreground='#fff', background='#f00')
         try:
             widget5 = Digit(value=8, fg='black', bg=bg_color)
-        except Tkinter.TclError:  # SystemMenu color unknown (probably Linux)
+        except tkinter.TclError:  # SystemMenu color unknown (probably Linux)
             bg_color = self.cget('bg')
             widget5 = Digit(value=8, fg='black', bg=bg_color)
         widget6 = Digit(value=8, fg='red', bg=bg_color)
@@ -116,11 +116,11 @@ class ForegroundBackground(Tkinter.Frame):
                                                                                                    expand=1)
 
 
-class SetMasks(Tkinter.Frame):
+class SetMasks(tkinter.Frame):
     """Demonstrates Digit's low-level set_mask function"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Setting\nmasks'
 
         currentmask = 0b1111111
@@ -128,18 +128,18 @@ class SetMasks(Tkinter.Frame):
         self.digit.set_mask(currentmask)
         self.digit.pack(side='left', padx=50)
 
-        self.maskframe = Tkinter.Frame(self)
+        self.maskframe = tkinter.Frame(self)
         self.maskframe.pack(side='left', expand=1, fill='x')
 
-        self.binlabel = Tkinter.Label(self.maskframe, text='mask value: ' + bin(currentmask), relief='ridge')
+        self.binlabel = tkinter.Label(self.maskframe, text='mask value: ' + bin(currentmask), relief='ridge')
         self.binlabel.pack(pady=5, ipadx=5, ipady=5, anchor='w')
 
-        self.choiceframe = Tkinter.Frame(self.maskframe)
+        self.choiceframe = tkinter.Frame(self.maskframe)
         self.choiceframe.pack(anchor='w')
         self.masks = []
         for i in range(7):
-            self.masks.append(Tkinter.IntVar())
-            cbutton = Tkinter.Checkbutton(self.choiceframe, text='mask %i' % i, variable=self.masks[i],
+            self.masks.append(tkinter.IntVar())
+            cbutton = tkinter.Checkbutton(self.choiceframe, text='mask %i' % i, variable=self.masks[i],
                                           command=self.updatemasks)
             cbutton.select()
             cbutton.config(takefocus=False)
@@ -152,7 +152,7 @@ class SetMasks(Tkinter.Frame):
         self.binlabel.config(text='mask value: ' + currentmask)
 
 
-class Demonstration(Tkinter.Frame):
+class Demonstration(tkinter.Frame):
     """Allows the user to try out the Digit's features interactively"""
 
     DEFAULT_CONFIG = dict(size=100,
@@ -161,31 +161,31 @@ class Demonstration(Tkinter.Frame):
                           foreground='red', )
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Interactive\nDemonstration'
         self.digit_config = Demonstration.DEFAULT_CONFIG.copy()
         self.digit = Digit(self, **self.digit_config)
         self.digit.pack(side='left', fill='y', expand=1, pady=30)
 
         # Interact subframe
-        self.interactframe = Tkinter.Frame(self)
+        self.interactframe = tkinter.Frame(self)
         self.interactframe.pack(side='right', fill='y', expand=1, pady=20)
-        Tkinter.Label(self.interactframe, text="Please enter Digit options...*").pack(anchor='w', pady=5)
+        tkinter.Label(self.interactframe, text="Please enter Digit options...*").pack(anchor='w', pady=5)
         # Entry frame contains config variable keys as labels and corresponding entry widgets with values of each key
-        self.entryframe = Tkinter.Frame(self.interactframe)
+        self.entryframe = tkinter.Frame(self.interactframe)
         row = 0
         for key, value in self.digit_config.items():
-            Tkinter.Label(self.entryframe, text=key).grid(row=row, column=0)
-            ent = Tkinter.Entry(self.entryframe, name=key)
+            tkinter.Label(self.entryframe, text=key).grid(row=row, column=0)
+            ent = tkinter.Entry(self.entryframe, name=key)
             ent.insert(0, str(value))
             ent.bind('<Return>', lambda e: self.refresh())
             ent.grid(row=row, column=1)
             row += 1
         self.entryframe.pack()
         # Reset buttons
-        Tkinter.Button(self.interactframe, text='Reset', width=10, command=self.reset).pack(pady=10)
+        tkinter.Button(self.interactframe, text='Reset', width=10, command=self.reset).pack(pady=10)
         msg = "*Press <enter> after typing in an option\n value to refresh the Digit widget"
-        Tkinter.Label(self.interactframe, text=msg, justify='left').pack(anchor='w')
+        tkinter.Label(self.interactframe, text=msg, justify='left').pack(anchor='w')
 
     # end init
 
@@ -199,7 +199,7 @@ class Demonstration(Tkinter.Frame):
                 # Config options that takes text: colors - convert to RGB first
                 try:
                     self.digit_config[key] = "#%04x%04x%04x" % self.winfo_rgb(input)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     self.entryframe.nametowidget(key).config(bg='red')
                 else:
@@ -212,7 +212,7 @@ class Demonstration(Tkinter.Frame):
             else:
                 try:
                     self.digit_config[key] = eval(input)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     self.entryframe.nametowidget(key).config(bg='red')
                 else:
@@ -228,7 +228,7 @@ class Demonstration(Tkinter.Frame):
                 warnings.simplefilter("always")
                 try:
                     self.digit = Digit(self, **self.digit_config)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     size = Demonstration.DEFAULT_CONFIG['size']
                     self.digit = Ctt.ErrorDisplay(self, size, error)
@@ -254,23 +254,23 @@ class Demonstration(Tkinter.Frame):
         """Resets back to the default configuration"""
         for key, value in Demonstration.DEFAULT_CONFIG.items():
             ent = self.entryframe.nametowidget(key)
-            ent.delete(0, Tkinter.END)
+            ent.delete(0, tkinter.END)
             ent.insert(0, str(value))
         self.refresh()
 
 
-class Advanced(Tkinter.Frame):
+class Advanced(tkinter.Frame):
     """Demonstrates the use of multiple coordinated Digits"""
 
     FOREGROUND = 'black'
     MASKPATTERN = [0, 3, 5, 1, 4, 2]
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Advanced\nDesign'
         self.BACKGROUND = self.cget('bg')
 
-        top_frame = Tkinter.Frame(self)
+        top_frame = tkinter.Frame(self)
         top_frame.pack(pady=50, side='top')
         # spinning Digit
         self.digit = Digit(top_frame, size=65, value=None)
@@ -278,9 +278,9 @@ class Advanced(Tkinter.Frame):
         self.update_digit(self.MASKPATTERN[0])
         # message
         msg = "Below is an array of digits performing their quintessential role: A digital clock."
-        Tkinter.Label(top_frame, text=msg, justify='left').grid(row=0, column=1)
+        tkinter.Label(top_frame, text=msg, justify='left').grid(row=0, column=1)
 
-        self.clock = Tkinter.Frame(self)
+        self.clock = tkinter.Frame(self)
         self.clock.pack()
 
         self.digits = []
@@ -293,18 +293,18 @@ class Advanced(Tkinter.Frame):
                 self.digits.append(digit)
             # colon in the middle
             if i == 0:
-                self.colon = Tkinter.Canvas(self.clock, height=size, width=size * 1 / 10, borderwidth=0,
+                self.colon = tkinter.Canvas(self.clock, height=size, width=size * 1 / 10, borderwidth=0,
                                             highlightthickness=0, bg=self.BACKGROUND)
                 self.colon.create_oval(0, size * 3 / 10, size * 1 / 10, size * 4 / 10, fill=self.FOREGROUND, width=0,
                                        tags='colon')
                 self.colon.create_oval(0, size * 7 / 10, size * 1 / 10, size * 8 / 10, fill=self.FOREGROUND, width=0,
                                        tags='colon')
                 self.colon.pack(side='left')
-        ledframe = Tkinter.Frame(self.clock)
+        ledframe = tkinter.Frame(self.clock)
         ledframe.pack(side='left', anchor='n', pady=10)
         self.am_pm = LED(ledframe, size=14, casewidth=0, reflectstyle=0, bulbcolor='red')
         self.am_pm.grid(row=0, column=0, ipady=1)
-        Tkinter.Label(ledframe, text="PM").grid(row=0, column=1)
+        tkinter.Label(ledframe, text="PM").grid(row=0, column=1)
 
         self.H, self.M, self.S = None, None, None
         self.update_time()
@@ -359,17 +359,17 @@ class Advanced(Tkinter.Frame):
 if __name__ == '__main__':
     module = 'Digit'
 
-    TestWindow = Tkinter.Tk()
+    TestWindow = tkinter.Tk()
     TestWindow.title('%s Widget Functionality Tester' % module)
 
-    quickmenu = Tkinter.Menu(TestWindow)
+    quickmenu = tkinter.Menu(TestWindow)
     TestWindow.config(menu=quickmenu)
-    filemenu = Tkinter.Menu(quickmenu, tearoff=0)
+    filemenu = tkinter.Menu(quickmenu, tearoff=0)
     quickmenu.add_cascade(label="File", menu=filemenu)
     filemenu.add_command(label="About", command=lambda: Ctt.showinfo(module))
     filemenu.add_command(label="Exit", command=TestWindow.quit)
 
-    tabs = Notebook(TestWindow)
+    tabs = ttk.Notebook(TestWindow)
     tabs.pack(fill='both', expand=1)
     tabframes = []
 

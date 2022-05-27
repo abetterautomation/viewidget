@@ -48,11 +48,11 @@ Support methods in this module:
 
 """
 
-from __future__ import division
+
 import warnings
 import math
-import Tkinter
-import tkFont
+import tkinter
+import tkinter.font
 from time import time
 from collections import deque
 from colorsys import rgb_to_hls, hls_to_rgb
@@ -81,7 +81,7 @@ class ViewidgetWarning(UserWarning):
 ##################
 # Dial Viewidget #
 ##################
-class Dial(Tkinter.Canvas):
+class Dial(tkinter.Canvas):
     """
     Tkinter-based dial widget.
 
@@ -247,7 +247,7 @@ class Dial(Tkinter.Canvas):
         shadow3D = math.floor(math.log(2 * size, 10))
         light3D = math.ceil(shadow3D / 2)
         length = size + casewidth + shadow3D
-        Tkinter.Canvas.__init__(self, master, width=length, height=length, borderwidth=0, highlightthickness=0)
+        tkinter.Canvas.__init__(self, master, width=length, height=length, borderwidth=0, highlightthickness=0)
 
         # Draw Dial body
         # --------------
@@ -296,7 +296,7 @@ class Dial(Tkinter.Canvas):
         textvals = (self.min + n * majorscale * count_direction for n in range(numoflines))
         textpos = arcoffset / 2.5
         texttags = ('majorscale', 'scale_text', 'scale')
-        self.scalefont = tkFont.Font(size=int(arcoffset / 5), weight='bold')
+        self.scalefont = tkinter.font.Font(size=int(arcoffset / 5), weight='bold')
         for angle, textval in zip(angles, textvals):
             x1 = self.xm + (dialrad - arcoffset) * math.cos(math.radians(angle))
             y1 = self.ym - (dialrad - arcoffset) * math.sin(math.radians(angle))
@@ -320,7 +320,7 @@ class Dial(Tkinter.Canvas):
         # -----------------------------------------------------------------
         x1 = self.xm
         y1 = self.ym + arcoffset * 4 / 3
-        self.displayfont = tkFont.Font(size=int(arcoffset / 3), weight='bold')
+        self.displayfont = tkinter.font.Font(size=int(arcoffset / 3), weight='bold')
         if withdisplay:
             self.display = self.create_text(x1, y1, font=self.displayfont, tags=('readout', 'display'))
             x1 = self.xm + max(self.displayfont.measure(self.min), self.displayfont.measure(self.max)) + 2
@@ -408,7 +408,7 @@ class Dial(Tkinter.Canvas):
 #################
 # LED Viewidget #
 #################
-class LED(Tkinter.Canvas):
+class LED(tkinter.Canvas):
     """
     Tkinter-based LED widget.
 
@@ -538,7 +538,7 @@ class LED(Tkinter.Canvas):
         shadow3D = math.floor(math.log(2 * size, 10))
         light3D = math.ceil(shadow3D / 2)
         length = size + casewidth + shadow3D
-        Tkinter.Canvas.__init__(self, master, width=length, height=length, borderwidth=0, highlightthickness=0)
+        tkinter.Canvas.__init__(self, master, width=length, height=length, borderwidth=0, highlightthickness=0)
 
         # Draw LED
         # --------
@@ -553,7 +553,7 @@ class LED(Tkinter.Canvas):
         self.reflection = self.create_arc(p1, p1, p2, p2, start=90, extent=90, width=(size - casewidth) / 20,
                                           style='arc', tags='reflection')
         if not reflectstyle & 0x1:
-            self.itemconfig(self.reflection, state=Tkinter.HIDDEN)
+            self.itemconfig(self.reflection, state=tkinter.HIDDEN)
 
         # LED color
         # ---------
@@ -565,12 +565,12 @@ class LED(Tkinter.Canvas):
     # End LED.__init__
 
     def _change_color(self, **colorargs):
-        if colorargs.viewkeys() <= self.current.viewkeys():
+        if colorargs.keys() <= self.current.keys():
             self.current.update(colorargs)
             self.itemconfig(self.led, fill=self.current['led'])
             self.itemconfig(self.reflection, outline=self.current['reflection'])
         else:
-            diff = colorargs.viewkeys() - self.current.viewkeys()
+            diff = colorargs.keys() - self.current.keys()
             raise ViewidgetError('LED color keyword "%s" unknown' % diff.pop())
 
     def set_blinkrate(self, rate):
@@ -678,8 +678,9 @@ class LED(Tkinter.Canvas):
 
     def blink_cancel(self):
         """Stop the LED from blinking."""
-        self.after_cancel(self.blinkID)
-        self.isblinking = False
+        if self.blinkID:
+            self.after_cancel(self.blinkID)
+            self.isblinking = False
 
     def blink(self):
         """Cause the LED to blink ON/OFF repeatedly at the set blinkrate."""
@@ -711,7 +712,9 @@ class LED(Tkinter.Canvas):
                 self.set_brightness(targetbrightness)
 
         # fade function body
-        self.after_cancel(self.fadeID)
+        if self.fadeID:
+            self.after_cancel(self.fadeID)
+
         latency = deque()
         if state:
             targetbrightness = self.state = LED.ON
@@ -729,7 +732,7 @@ class LED(Tkinter.Canvas):
 ###################
 # Digit Viewidget #
 ###################
-class Digit(Tkinter.Canvas):
+class Digit(tkinter.Canvas):
     """
     Tkinter-based seven-segment single digit widget.
 
@@ -809,7 +812,7 @@ class Digit(Tkinter.Canvas):
 
         # Call Canvas Constructor
         # -----------------------
-        Tkinter.Canvas.__init__(self, master, height=size, width=size * 2 / 3, borderwidth=0, highlightthickness=0)
+        tkinter.Canvas.__init__(self, master, height=size, width=size * 2 / 3, borderwidth=0, highlightthickness=0)
 
         # Draw DigitalDisplay
         # -------------------
@@ -885,9 +888,9 @@ class Digit(Tkinter.Canvas):
         """Set which segments are activated."""
         for seg in self.segments:
             if 2 ** self.segments.index(seg) & mask:
-                state = Tkinter.NORMAL
+                state = tkinter.NORMAL
             else:
-                state = Tkinter.HIDDEN
+                state = tkinter.HIDDEN
             self.itemconfig(seg, state=state)
 
     def change_color(self, foreground=None, background=None):

@@ -8,58 +8,58 @@
 
 import warnings
 import random
-import Tkinter
-from ttk import Notebook
+import tkinter
+from tkinter import ttk
 
 from viewidget import LED
 
 import CommonTestTools as Ctt
 
 
-class Introduction(Tkinter.Frame):
+class Introduction(tkinter.Frame):
     """Provides an introduction from LED's docstring"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Introduction\n'
-        innerframe = Tkinter.Frame(self)
+        innerframe = tkinter.Frame(self)
         widget = LED(innerframe, diodecolor='#ffcc00', state=LED.ON)
         widget.pack(side='right')
-        docframe = Tkinter.Frame(innerframe)
+        docframe = tkinter.Frame(innerframe)
         name = Ctt.getwidgetname(widget, True)
         doc = Ctt.getdoc(widget)
-        Tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
-        Tkinter.Label(docframe, text=doc, justify='left').pack(side='bottom')
+        tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
+        tkinter.Label(docframe, text=doc, justify='left').pack(side='bottom')
         docframe.pack(side='left')
         innerframe.pack(side='left', fill='x', expand=1, padx=50)
 
 
-class Construction(Tkinter.Frame):
+class Construction(tkinter.Frame):
     """Provides information on LED's __init__ function"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Construction\n'
-        innerframe = Tkinter.Frame(self)
+        innerframe = tkinter.Frame(self)
         widget = LED(innerframe, size=125, bulbcolor='green', state=LED.ON)
         widget.pack(side='right')
-        docframe = Tkinter.Frame(innerframe)
+        docframe = tkinter.Frame(innerframe)
         name = Ctt.getwidgetname(widget) + ".__init__"
         sig = Ctt.getfunctionsignature(widget.__init__)
         doc = Ctt.getdoc(widget.__init__)
         t = '\t'.expandtabs(4)
         doc = t + doc.replace('\n', '\n' + t)
-        Tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
-        Tkinter.Label(docframe, text='\n'.join([sig, doc]), justify='left').pack(side='bottom')
+        tkinter.Label(docframe, text=name, font=('Helvetica', 16, 'bold')).pack(side='top', pady=2)
+        tkinter.Label(docframe, text='\n'.join([sig, doc]), justify='left').pack(side='bottom')
         docframe.pack(side='left')
         innerframe.pack(side='left', fill='x', expand=1, padx=50)
 
 
-class SizeCasewidth(Tkinter.Frame):
+class SizeCasewidth(tkinter.Frame):
     """Demonstrates LED configuration functionality: size and casewidth"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'size and\ncasewidth'
 
         widget1 = LED()  # Default: size=100, casewidth=10
@@ -74,11 +74,11 @@ class SizeCasewidth(Tkinter.Frame):
         Ctt.WidgetBlock(self, block1, block2, block3, block4).pack(fill='both', expand=1)
 
 
-class StateColor(Tkinter.Frame):
+class StateColor(tkinter.Frame):
     """Demonstrates LED configuration functionality: state, diodecolor, and bulbcolor"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'state, diodecolor\nand bulbcolor'
 
         widget1 = LED()  # Default: state=False, diodecolor='white', bulbcolor='white'
@@ -102,11 +102,11 @@ class StateColor(Tkinter.Frame):
                                                                                                    expand=1)
 
 
-class Reflectstyle(Tkinter.Frame):
+class Reflectstyle(tkinter.Frame):
     """Demonstrates LED configuration functionality: reflectstyle (steadystate)"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'reflectstyle\n(steadystate)'
 
         widget1 = LED(diodecolor='blue')  # Default: reflectstyle=0b111
@@ -130,11 +130,11 @@ class Reflectstyle(Tkinter.Frame):
                                                                                                    expand=1)
 
 
-class ReflectFadeBlink(Tkinter.Frame):
+class ReflectFadeBlink(tkinter.Frame):
     """Demonstrates LED configuration functionality: reflectstyle (transient), faderate, blinkrate"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'reflectstyle (transient),\nfaderate and blinkrate'
 
         widget1 = LED(diodecolor='red', state=True)  # Default: reflectstyle=0b111, faderate=0, blinkrate=0
@@ -166,17 +166,17 @@ class ReflectFadeBlink(Tkinter.Frame):
                                                                                                    expand=1)
 
 
-class Brightness(Tkinter.Frame):
+class Brightness(tkinter.Frame):
     """Demonstrates LED's set_brightness functionality"""
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Setting\nbrightness'
 
         self.led = LED(self, bulbcolor='#0F0', state=LED.ON)
         self.led.pack(side='left', padx=50)
 
-        self.slide = Tkinter.Scale(self, label='brightness', takefocus=False,
+        self.slide = tkinter.Scale(self, label='brightness', takefocus=False,
                                    command=self.update_brightness)  # , relief='groove', borderwidth=2)
         self.slide.config(from_=100, to=0)  # Reverse slider so 0 is on the bottom
         self.slide.set(100)
@@ -186,7 +186,7 @@ class Brightness(Tkinter.Frame):
         self.led.set_brightness(float(value) / 100)
 
 
-class Demonstration(Tkinter.Frame):
+class Demonstration(tkinter.Frame):
     """Allows the user to try out the LED's features interactively"""
 
     DEFAULT_CONFIG = dict(size=100,
@@ -196,15 +196,15 @@ class Demonstration(Tkinter.Frame):
                           reflectstyle=0b111, )
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Interactive\nDemonstration'
 
         # LEDs frame for both off and on demonstrators
-        self.leds_frame = Tkinter.Frame(self)
+        self.leds_frame = tkinter.Frame(self)
         self.leds_frame.pack(side='left', fill='y', expand=1, pady=20)
-        self.ledoff = Tkinter.LabelFrame(self.leds_frame, text="OFF", labelanchor='n', relief='flat')
+        self.ledoff = tkinter.LabelFrame(self.leds_frame, text="OFF", labelanchor='n', relief='flat')
         self.ledoff.pack(fill='y', expand=1)
-        self.ledon = Tkinter.LabelFrame(self.leds_frame, text="ON", labelanchor='n', relief='flat')
+        self.ledon = tkinter.LabelFrame(self.leds_frame, text="ON", labelanchor='n', relief='flat')
         self.ledon.pack(fill='y', expand=1)
 
         self.leds_config = Demonstration.DEFAULT_CONFIG.copy()
@@ -215,15 +215,15 @@ class Demonstration(Tkinter.Frame):
         self.led2.pack(fill='y', expand=1, anchor='n')
 
         # Interact subframe
-        self.interactframe = Tkinter.Frame(self)
+        self.interactframe = tkinter.Frame(self)
         self.interactframe.pack(side='right', fill='y', expand=1, pady=10)
-        Tkinter.Label(self.interactframe, text="Please enter LED options...*").pack(anchor='w', pady=5)
+        tkinter.Label(self.interactframe, text="Please enter LED options...*").pack(anchor='w', pady=5)
         # Entry frame contains config variable keys as labels and corresponding entry widgets with values of each key
-        self.entryframe = Tkinter.Frame(self.interactframe)
+        self.entryframe = tkinter.Frame(self.interactframe)
         row = 0
         for key, value in self.leds_config.items():
-            Tkinter.Label(self.entryframe, text=key).grid(row=row, column=0)
-            ent = Tkinter.Entry(self.entryframe, name=key)
+            tkinter.Label(self.entryframe, text=key).grid(row=row, column=0)
+            ent = tkinter.Entry(self.entryframe, name=key)
             if key == 'reflectstyle':
                 ent.insert(0, bin(value))
             else:
@@ -233,12 +233,12 @@ class Demonstration(Tkinter.Frame):
             row += 1
         self.entryframe.pack()
         # Reset and animate buttons
-        self.animate_button = Tkinter.Button(self.interactframe, text='Animate', width=10,
+        self.animate_button = tkinter.Button(self.interactframe, text='Animate', width=10,
                                              command=lambda: Animation(self, **self.leds_config))
         self.animate_button.pack(pady=10)
-        Tkinter.Button(self.interactframe, text='Reset', width=10, command=self.reset).pack()
+        tkinter.Button(self.interactframe, text='Reset', width=10, command=self.reset).pack()
         msg = "*Press <enter> after typing in an option\n value to refresh the LED widget"
-        Tkinter.Label(self.interactframe, text=msg, justify='left').pack(anchor='w', pady=10)
+        tkinter.Label(self.interactframe, text=msg, justify='left').pack(anchor='w', pady=10)
 
     # end init
 
@@ -252,7 +252,7 @@ class Demonstration(Tkinter.Frame):
                 # Config options that takes text: colors - convert to RGB first
                 try:
                     self.leds_config[key] = "#%04x%04x%04x" % self.winfo_rgb(input)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     self.entryframe.nametowidget(key).config(bg='red')
                 else:
@@ -260,7 +260,7 @@ class Demonstration(Tkinter.Frame):
             else:
                 try:
                     self.leds_config[key] = eval(input)
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     self.entryframe.nametowidget(key).config(bg='red')
                 else:
@@ -272,23 +272,23 @@ class Demonstration(Tkinter.Frame):
         if haserror:
             size = Demonstration.DEFAULT_CONFIG['size'] * 2
             self.ledoff = Ctt.ErrorDisplay(self.leds_frame, size, error)
-            self.ledon = Tkinter.Frame(self.leds_frame)
+            self.ledon = tkinter.Frame(self.leds_frame)
         else:
             with warnings.catch_warnings(record=True) as warns:
                 warnings.simplefilter("always")
                 try:
-                    self.ledoff = Tkinter.LabelFrame(self.leds_frame, text="OFF", labelanchor='n', relief='flat')
-                    self.ledon = Tkinter.LabelFrame(self.leds_frame, text="ON", labelanchor='n', relief='flat')
+                    self.ledoff = tkinter.LabelFrame(self.leds_frame, text="OFF", labelanchor='n', relief='flat')
+                    self.ledon = tkinter.LabelFrame(self.leds_frame, text="ON", labelanchor='n', relief='flat')
                     self.led1 = LED(self.ledoff, **self.leds_config)
                     self.led1.pack(fill='y', expand=1)
                     self.led2 = LED(self.ledon, **self.leds_config)
                     self.led2.turnon()
                     self.led2.pack(fill='y', expand=1, anchor='n')
-                except Exception, error:
+                except Exception as error:
                     haserror = True
                     size = Demonstration.DEFAULT_CONFIG['size'] * 2
                     self.ledoff = Ctt.ErrorDisplay(self.leds_frame, size, error)
-                    self.ledon = Tkinter.Frame(self.leds_frame)
+                    self.ledon = tkinter.Frame(self.leds_frame)
                     for key in self.leds_config:
                         if any(key == word for word in str(error).split(' ')):
                             self.entryframe.nametowidget(key).config(bg='red')
@@ -306,9 +306,9 @@ class Demonstration(Tkinter.Frame):
         self.ledoff.pack(fill='y', expand=1)
         self.ledon.pack(fill='y', expand=1)
         if haserror:
-            self.animate_button.config(state=Tkinter.DISABLED)
+            self.animate_button.config(state=tkinter.DISABLED)
         elif self.animate_button['state'] != 'normal':
-            self.animate_button.config(state=Tkinter.NORMAL)
+            self.animate_button.config(state=tkinter.NORMAL)
 
     # end refresh
 
@@ -316,7 +316,7 @@ class Demonstration(Tkinter.Frame):
         """Resets back to the default configuration"""
         for key, value in Demonstration.DEFAULT_CONFIG.items():
             ent = self.entryframe.nametowidget(key)
-            ent.delete(0, Tkinter.END)
+            ent.delete(0, tkinter.END)
             if key == 'reflectstyle':
                 ent.insert(0, bin(value))
             else:
@@ -324,11 +324,11 @@ class Demonstration(Tkinter.Frame):
         self.refresh()
 
 
-class Animation(Tkinter.Toplevel):
+class Animation(tkinter.Toplevel):
     """Toplevel window to run animation"""
 
     def __init__(self, master, **config):
-        Tkinter.Toplevel.__init__(self, master)
+        tkinter.Toplevel.__init__(self, master)
         self.transient(master)
         self.title('Animation')
         self.protocol("WM_DELETE_WINDOW", self.cancel)
@@ -344,37 +344,37 @@ class Animation(Tkinter.Toplevel):
         self.led.pack(pady=30)
 
         # Additional LED Parameters for Animation
-        self.entryframe = Tkinter.Frame(self)
+        self.entryframe = tkinter.Frame(self)
         self.entryframe.pack()
         # faderate
         name = 'faderate'
-        Tkinter.Label(self.entryframe, text=name).grid(row=0, column=0)
-        ent = Tkinter.Entry(self.entryframe, name=name, width=10)
+        tkinter.Label(self.entryframe, text=name).grid(row=0, column=0)
+        ent = tkinter.Entry(self.entryframe, name=name, width=10)
         ent.insert(0, str(self.led.faderate))
         ent.bind('<Return>', lambda e: self.set_rates())
         ent.grid(row=0, column=1)
         # blinkrate
         name = 'blinkrate'
-        Tkinter.Label(self.entryframe, text=name).grid(row=1, column=0)
-        ent = Tkinter.Entry(self.entryframe, name=name, width=10)
+        tkinter.Label(self.entryframe, text=name).grid(row=1, column=0)
+        ent = tkinter.Entry(self.entryframe, name=name, width=10)
         ent.insert(0, str(self.led.blinkrate))
         ent.bind('<Return>', lambda e: self.set_rates())
         ent.grid(row=1, column=1)
 
         # On button
-        button = Tkinter.Button(self, text='On', width=10, command=self.turnon)
+        button = tkinter.Button(self, text='On', width=10, command=self.turnon)
         button.pack(pady=5)
 
         # Off button
-        button = Tkinter.Button(self, text='Off', width=10, command=self.turnoff)
+        button = tkinter.Button(self, text='Off', width=10, command=self.turnoff)
         button.pack(pady=5)
 
         # Quit button
-        self.button = Tkinter.Button(self, text='Quit', width=10, command=self.cancel)
+        self.button = tkinter.Button(self, text='Quit', width=10, command=self.cancel)
         self.button.pack(pady=10)
 
         msg = "Rates are set when buttons are pressed,\nor type a rate and press <enter> to\nset while running."
-        Tkinter.Label(self, text=msg).pack(pady=5)
+        tkinter.Label(self, text=msg).pack(pady=5)
 
         self.focus_set()
 
@@ -401,7 +401,7 @@ class Animation(Tkinter.Toplevel):
         # check for input errors
         try:
             input = eval(self.entryframe.nametowidget(key).get())
-        except Exception, error:
+        except Exception as error:
             haserror = True
             self.entryframe.nametowidget(key).config(bg='red')
         else:
@@ -410,7 +410,7 @@ class Animation(Tkinter.Toplevel):
         if not haserror:
             try:
                 ratefunc(input)
-            except Exception, error:
+            except Exception as error:
                 haserror = True
                 self.entryframe.nametowidget(key).config(bg='red')
             else:
@@ -426,7 +426,7 @@ class Animation(Tkinter.Toplevel):
         self.destroy()
 
 
-class Advanced(Tkinter.Frame):
+class Advanced(tkinter.Frame):
     """Demonstrates more advanced usage of the LED"""
 
     COLORS = ['green', 'orange', 'blue']
@@ -434,10 +434,10 @@ class Advanced(Tkinter.Frame):
     COLUMNS = 30
 
     def __init__(self, master):
-        Tkinter.Frame.__init__(self, master)
+        tkinter.Frame.__init__(self, master)
         self.title = 'Advanced\nDesign'
 
-        topframe = Tkinter.Frame(self)
+        topframe = tkinter.Frame(self)
         topframe.pack(pady=50, side='top')
         # first blinking LED
         color = self.COLORS[0]
@@ -449,7 +449,7 @@ class Advanced(Tkinter.Frame):
         # message
         msg = "The LED can be utilized in various ways and designs.\n"
         msg += "An example of LEDs used as an equalizer display is shown below."
-        Tkinter.Label(topframe, text=msg, justify='left').grid(row=0, column=1)
+        tkinter.Label(topframe, text=msg, justify='left').grid(row=0, column=1)
         # second blinking LED
         color = self.COLORS[1]
         led = LED(topframe, size=56, casewidth=5, state=LED.ON, diodecolor=color, reflectstyle=5)
@@ -460,7 +460,7 @@ class Advanced(Tkinter.Frame):
 
         # Array of LEDs
         self.LEDs = []
-        LEDframe = Tkinter.Frame(self)
+        LEDframe = tkinter.Frame(self)
         LEDframe.pack(padx=10, pady=10)
         for i in range(self.COLUMNS):
             LEDs = []
@@ -520,17 +520,17 @@ class Advanced(Tkinter.Frame):
 if __name__ == '__main__':
     module = 'LED'
 
-    TestWindow = Tkinter.Tk()
+    TestWindow = tkinter.Tk()
     TestWindow.title('%s Widget Functionality Tester' % module)
 
-    quickmenu = Tkinter.Menu(TestWindow)
+    quickmenu = tkinter.Menu(TestWindow)
     TestWindow.config(menu=quickmenu)
-    filemenu = Tkinter.Menu(quickmenu, tearoff=0)
+    filemenu = tkinter.Menu(quickmenu, tearoff=0)
     quickmenu.add_cascade(label="File", menu=filemenu)
     filemenu.add_command(label="About", command=lambda: Ctt.showinfo(module))
     filemenu.add_command(label="Exit", command=TestWindow.quit)
 
-    tabs = Notebook(TestWindow)
+    tabs = ttk.Notebook(TestWindow)
     tabs.pack(fill='both', expand=1)
     tabframes = []
 
